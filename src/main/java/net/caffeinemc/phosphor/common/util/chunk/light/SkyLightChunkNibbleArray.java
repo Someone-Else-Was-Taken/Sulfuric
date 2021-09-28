@@ -12,8 +12,8 @@ public class SkyLightChunkNibbleArray extends ReadonlyChunkNibbleArray {
     }
 
     @Override
-    protected int getIndex(final int x, final int y, final int z) {
-        return super.getIndex(x, 0, z);
+    public int get(final int x, final int y, final int z) {
+        return super.get(x, 0, z);
     }
 
     @SuppressWarnings("ConstantConditions")

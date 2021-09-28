@@ -483,8 +483,12 @@ public abstract class MixinLightStorage extends SectionDistanceLevelPropagator i
         }
     }
 
-    @Override
-    public int getLightWithoutLightmap(final long blockPos) {
+    /**
+     * Returns the light value for a position that does not have an associated lightmap.
+     * This is analogous to {@link LightStorage#getLight(long)}, but uses the cached light data.
+     */
+    @Unique
+    protected int getLightWithoutLightmap(final long blockPos) {
         return 0;
     }
 

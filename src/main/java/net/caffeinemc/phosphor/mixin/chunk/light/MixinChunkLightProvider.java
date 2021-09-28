@@ -14,7 +14,6 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkNibbleArray;
 import net.minecraft.world.chunk.ChunkProvider;
@@ -83,10 +82,6 @@ public abstract class MixinChunkLightProvider
      */
     @Unique
     protected BlockState getBlockStateForLighting(int x, int y, int z) {
-        if (World.isOutOfBuildLimitVertically(y)) {
-            return DEFAULT_STATE;
-        }
-
         final long chunkPos = ChunkPos.toLong(x >> 4, z >> 4);
 
         for (int i = 0; i < 2; i++) {
