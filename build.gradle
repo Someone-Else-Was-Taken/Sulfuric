@@ -6,14 +6,14 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = "${project.archives_base_name}-mc${project.minecraft_version}"
+version = project.mod_version
 group = project.maven_group
 
-def build_id = System.getenv("GITHUB_RUN_NUMBER");
+def build_id = System.getenv("BUILD_ID");
 
-if (build_id == null) {
-    version = "${project.mod_version}-SNAPSHOT"
-} else {
-    version = "${project.mod_version}+build.${build_id}"
+if (build_id != null) {
+    version += build_id == 'SNAPSHOT' ? '-' : '+build.'
+    version += build_id
 }
 
 loom {

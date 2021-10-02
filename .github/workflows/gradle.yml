@@ -16,6 +16,8 @@ jobs:
         java-version: 16
     - name: Build with Gradle
       run: ./gradlew build
+      env:
+        BUILD_ID: ${{ github.run_number }}
     - name: Upload build artifacts
       uses: actions/upload-artifact@v1
       with:

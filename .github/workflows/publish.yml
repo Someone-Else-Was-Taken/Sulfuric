@@ -2,8 +2,7 @@ name: release-artifacts
 
 on:
   release:
-     types:
-       - published
+    types: [published]
 
 jobs:
   build:
@@ -16,6 +15,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 16
+      - name: Set build id
+        if: github.event.release.prerelease
+        run: echo "BUILD_ID=SNAPSHOT" >> $GITHUB_ENV
       - name: Build with Gradle
         run: ./gradlew build
       - name: Upload assets to GitHub
