@@ -1,11 +1,8 @@
 package net.caffeinemc.phosphor.common.chunk.light;
 
-import net.minecraft.world.chunk.ChunkNibbleArray;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
 
 public interface LightStorageAccess {
-    ChunkNibbleArray callGetLightSection(long sectionPos, boolean cached);
-
     boolean callHasSection(long sectionPos);
 
     /**

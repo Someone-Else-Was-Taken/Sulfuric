@@ -1,6 +1,5 @@
 package net.caffeinemc.phosphor.mixin.chunk.light;
 
-import net.caffeinemc.phosphor.common.chunk.light.LightStorageAccess;
 import net.caffeinemc.phosphor.common.chunk.light.SkyLightStorageAccess;
 import net.caffeinemc.phosphor.common.util.LightUtil;
 import net.caffeinemc.phosphor.common.util.math.ChunkSectionPosHelper;
@@ -12,13 +11,11 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.chunk.ChunkNibbleArray;
 import net.minecraft.world.chunk.light.ChunkSkyLightProvider;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 
 import static net.minecraft.util.math.ChunkSectionPos.getLocalCoord;
 import static net.minecraft.util.math.ChunkSectionPos.getSectionCoord;

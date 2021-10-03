@@ -15,7 +15,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkNibbleArray;
 import net.minecraft.world.chunk.ChunkProvider;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
@@ -56,6 +55,7 @@ public abstract class MixinChunkLightProvider
     private BitSet prevChunkBucketSet;
 
     @Inject(method = "clearChunkCache", at = @At("RETURN"))
+    @SuppressWarnings("ConstantConditions")
     private void onCleanup(CallbackInfo ci) {
         // This callback may be executed from the constructor above, and the object won't be initialized then
         if (this.cachedChunkPos != null) {
@@ -67,11 +67,6 @@ public abstract class MixinChunkLightProvider
     @Unique
     protected boolean hasSection(final long sectionPos) {
         return ((LightStorageAccess) this.lightStorage).callHasSection(sectionPos);
-    }
-
-    @Unique
-    protected ChunkNibbleArray getLightSection(final long chunkId) {
-        return ((LightStorageAccess) this.lightStorage).callGetLightSection(chunkId, true);
     }
 
     // [VanillaCopy] method_20479
@@ -283,9 +278,6 @@ public abstract class MixinChunkLightProvider
 
     @Shadow
     protected void resetLevel(long id) {}
-
-    @Shadow
-    protected abstract int getCurrentLevelFromSection(ChunkNibbleArray section, long blockPos);
 
     /**
      * @author PhiPro
