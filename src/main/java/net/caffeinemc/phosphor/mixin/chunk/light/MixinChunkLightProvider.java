@@ -36,7 +36,7 @@ import java.util.BitSet;
 public abstract class MixinChunkLightProvider
         extends MixinLevelPropagator implements InitialLightingAccess, LightProviderUpdateTracker {
     private static final BlockState DEFAULT_STATE = Blocks.AIR.getDefaultState();
-    private static final ChunkSection[] EMPTY_SECTION_ARRAY = new ChunkSection[16];
+    private static final ChunkSection[] EMPTY_SECTION_ARRAY = new ChunkSection[0];
 
     @Shadow
     @Final
@@ -92,11 +92,15 @@ public abstract class MixinChunkLightProvider
         return this.getBlockStateFromSection(this.getAndCacheChunkSections(x >> 4, z >> 4), x, y, z);
     }
 
-    private BlockState getBlockStateFromSection(ChunkSection[] sections, int x, int y, int z) {
-        ChunkSection section = sections[y >> 4];
+    private BlockState getBlockStateFromSection(final ChunkSection[] sections, final int x, final int y, final int z) {
+        final int index = this.chunkProvider.getWorld().getSectionIndex(y);
 
-        if (section != null) {
-            return section.getBlockState(x & 15, y & 15, z & 15);
+        if (index >= 0 && index < sections.length) {
+            final ChunkSection section = sections[index];
+
+            if (!ChunkSection.isEmpty(section)) {
+                return section.getBlockState(x & 15, y & 15, z & 15);
+            }
         }
 
         return DEFAULT_STATE;
